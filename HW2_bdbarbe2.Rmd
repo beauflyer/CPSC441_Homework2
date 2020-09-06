@@ -1,0 +1,105 @@
+---
+title: "HW2_bdbarbe2"
+author: "Beau Barber"
+date: "9/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## W2 Question 2
+2 - Create an R Markdown document and do the following (include the R code in all of your answers):
+
+     a) show the step-by-step how to solve the following system of equations in R (Use R chunks to run each part). 
+
+      2x + 5y = 33
+
+      x + 3y = 19
+      
+      Step - by - Step Solution
+      
+      2x+5y=33
+      1x+3y=19
+      
+      Can be written in the matrix notation
+      
+       x  y  = C
+      [2, 5, 33;
+       1, 3, 19]
+       
+       
+       Converting to Row Reduced Echelon Form by Gaussian Jordan Elimination
+       
+       Multiply Row1 by 1/2
+       
+       [1, 2.5, 16.5;
+        1, 3  , 19]
+        
+        Subtract Row 1 from Row 2
+        
+        [1, 2.5, 16.5;
+         0, 0.5, 2.5]
+         
+         Divide Row 2 by 0.5
+         
+         [1 2.5 16.5;
+          0 1   5   ]
+          
+          From this I can tell y = 5, but continuing on
+          
+         Subtract (Row 2)*2.5 from Row 1
+         
+          x y
+         [1 0 4;
+          0 1 5]
+          
+          From this we have x=4, y=5
+# CHECK  
+
+    2x+5y=33       2(4)+5(5)=33 -->  8+25=33 --> 33=33
+    1x+3y=19       1(4)+3(5)=19 -->  4+15=19 --> 19=19
+         
+```{r}
+    sys_equations <- rbind(c(2,5),c(1,3))
+    print(sys_equations)
+    writeLines("\n")
+    rref_equations <- solve(sys_equations,c(33,19))    #solve function solve(a,b) where "a" is the equation on the left hand side (coefficients of variables) and "b" is the right hand side (solution/constants)
+    print(rref_equations)
+```
+      
+
+b) create a vector that goes from 1 to 100 and calculates the average of it WITHOUT using the R function “mean”.
+
+```{r}
+   num_vec <- 1:100 #Creates the vector
+   #I can calculate the mean by taking the sum of the vector divided by its length
+   sum_val=sum(num_vec)
+   print(sum_val)
+   length_val=length(num_vec)
+   print(length_val)
+   mean_of_vector <- sum(num_vec)/length(num_vec)
+   print(mean_of_vector)
+```
+
+
+c) install the package “dplyr”.
+
+```{r}
+install.packages("dplyr")
+require("dplyr")
+```
+
+
+3 - create a data frame of two rows with A, B, C, and D in row 1 and D, E, F, and G in row 2.
+
+```{r}
+df_char=data.frame(data = rbind(c("A","B","C","D"),c("D","E","F","G")))
+print(df_char)
+```
+
+
+4 - Create a repository on your GitHub account (not in the IntroToR organization!) and push the R Markdown file created on #2.
+
+
