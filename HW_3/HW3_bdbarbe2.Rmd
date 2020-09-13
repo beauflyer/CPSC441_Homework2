@@ -1,0 +1,62 @@
+---
+title: "HW3_bdbarbe2"
+author: "Beau Barber"
+date: "9/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Homework 3
+
+All responses should be included as R chunks in an R Markdown document and saved at the same repository used for homework 2.
+
+
+## 1) Write a function to calculate the mean.
+
+```{r}
+myMean <- function(vec_input) {
+  output <- sum(vec_input)/length(vec_input)
+  return(output)
+}
+```
+
+
+Download the following dataset and use it for questions 2-4: https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-01/key_crop_yields.csv
+
+```{r}
+cropyields_data <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-01/key_crop_yields.csv')
+```
+
+
+##  2) The range (first and last) of the variable Year.
+
+```{r}
+timerange=range(cropyields_data$Year)
+print(timerange)
+```
+
+
+## 3) Using the function from #1, calculate the mean of the variable "Maize (tonnes per hectare)".  TIP: When there is missing data (NA), the functions mean, sum, and others, will result in NA. The solution to obtain the desired result is either remove all NAs or use the option na.rm = TRUE (see "?sum").
+
+```{r}
+#Original Dataset
+maize_original <- cropyields_data$`Maize (tonnes per hectare)`
+
+#Remove NA values 
+maize_NArm=maize_original[!is.na(maize_original)]
+
+#Calculate Mean without NA values
+maize_mean <- myMean(maize_NArm)
+print(maize_mean)
+```
+
+## 4) Save a file with the variable named "Entity".
+
+```{r}
+Entity_df <- cropyields_data$Entity
+write.table(Entity_df, file = "Entity.txt", sep = ",")
+```
+
